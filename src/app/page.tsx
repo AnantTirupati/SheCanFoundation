@@ -17,36 +17,41 @@ export default function HomePage() {
 
   useEffect(() => {
     async function fetchStats() {
+      let targetGirls = 1000;
+      let targetPads = 10000;
+      let targetVolunteers = 2000;
+
       try {
         const res = await fetch('/api/stats');
         const data = await res.json();
         if (data.success) {
-          const targetGirls = data.girlsHelped || 1000;
-          const targetPads = data.padsDistributed || 10000;
-          const targetVolunteers = data.volunteersCount || 2000;
-
-          const duration = 1200;
-          const steps = 30;
-          const stepTime = duration / steps;
-          let step = 0;
-
-          const timer = setInterval(() => {
-            step++;
-            setGirlsHelped(Math.floor((targetGirls / steps) * step));
-            setPadsDistributed(Math.floor((targetPads / steps) * step));
-            setVolunteersCount(Math.floor((targetVolunteers / steps) * step));
-
-            if (step >= steps) {
-              setGirlsHelped(targetGirls);
-              setPadsDistributed(targetPads);
-              setVolunteersCount(targetVolunteers);
-              clearInterval(timer);
-            }
-          }, stepTime);
+          targetGirls = data.girlsHelped || 1000;
+          targetPads = data.padsDistributed || 10000;
+          targetVolunteers = data.volunteersCount || 2000;
         }
       } catch (err) {
-        console.error('Failed to fetch real-time stats:', err);
+        console.warn('Using baseline fallback stats (DB offline/pending configuration):', err);
       }
+
+      // Always animate metrics from 0 up to targets
+      const duration = 1200;
+      const steps = 30;
+      const stepTime = duration / steps;
+      let step = 0;
+
+      const timer = setInterval(() => {
+        step++;
+        setGirlsHelped(Math.floor((targetGirls / steps) * step));
+        setPadsDistributed(Math.floor((targetPads / steps) * step));
+        setVolunteersCount(Math.floor((targetVolunteers / steps) * step));
+
+        if (step >= steps) {
+          setGirlsHelped(targetGirls);
+          setPadsDistributed(targetPads);
+          setVolunteersCount(targetVolunteers);
+          clearInterval(timer);
+        }
+      }, stepTime);
     }
     fetchStats();
   }, []);
