@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  VOLUNTEER
+  DONOR
+  USER
+}
+
+enum VolunteerStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  donations  Donation[]
+  volunteer  Volunteer?
+  blogs      Blog[]
+}
+
+model Campaign {
+  id           String     @id @default(uuid())
+  title        String
+  description  String
+  category     String     // e.g., Menstrual Hygiene, Skill Development, Education
+  targetAmount Float
+  raisedAmount Float      @default(0)
+  coverImage   String
+  active       Boolean    @default(true)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  
+  // Relations
+  donations    Donation[]
+}
+
+model Donation {
+  id           String   @id @default(uuid())
+  amount       Float
+  currency     String   @default("INR")
+  donorName    String
+  donorEmail   String
+  donorPhone   String?
+  paymentId    String?  @unique // Razorpay payment id
+  orderId      String   @unique // Razorpay order id
+  signature    String?  // Razorpay signature
+  verified     Boolean  @default(false)
+  taxReceiptUrl String?
+  createdAt    DateTime @default(now())
+  
+  // Relations
+  userId       String?
+  user         User?     @relation(fields: [userId], references: [id])
+  campaignId   String?
+  campaign     Campaign? @relation(fields: [campaignId], references: [id])
+}
+
+model Volunteer {
+  id          String          @id @default(uuid())
+  name        String
+  email       String          @unique
+  phone       String
+  bio         String
+  skills      String[]        // Array of skills (e.g., teaching, counseling, organizing)
+  resume      String?         // Base64 data or URL representing the resume file
+  status      VolunteerStatus @default(PENDING)
+  tasks       String[]        // Dynamic assignments
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  
+  // Relations
+  userId      String?         @unique
+  user        User?           @relation(fields: [userId], references: [id])
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  date        DateTime
+  location    String
+  coverImage  String
+  capacity    Int      @default(100)
+  registered  Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Blog {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  content     String   // MD/HTML rich text content
+  coverImage  String
+  category    String
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  authorId    String?
+  author      User?    @relation(fields: [authorId], references: [id])
+}

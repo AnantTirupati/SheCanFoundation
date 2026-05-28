@@ -1,26 +1,109 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary-deep: #5b21b6;
+  --color-primary-royal: #7c3aed;
+  --color-secondary-pink: #ec4899;
+  --color-secondary-peach: #fdba74;
+  --color-neutral-white: #ffffff;
+  --color-neutral-cream: #faf7f2;
+  --color-neutral-warm: #fff9f5;
+  --color-neutral-charcoal: #1f2937;
+  --color-neutral-slate: #4b5563;
+  --color-accent-gold: #d97706;
+
+  --animate-float: float 8s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
   }
+  50% {
+    transform: translateY(-8px) rotate(0.8deg);
+  }
+}
+
+:root {
+  --background: #fff9f5;
+  --foreground: #1f2937;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Premium Custom Humanitarian Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #faf7f2;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Light Glassmorphism Styles (Soft & Trustworthy) */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(31, 41, 55, 0.05);
+}
+
+.glass-dark {
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Organic Soft Blur Shadows */
+.soft-shadow {
+  box-shadow: 0 10px 30px -10px rgba(31, 41, 55, 0.06), 0 1px 3px rgba(31, 41, 55, 0.02);
+}
+
+.soft-shadow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.soft-shadow-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(31, 41, 55, 0.12);
+}
+
+/* Organic Blur Gradients (Earthy & Warm) */
+.warm-mesh {
+  background-color: #fff9f5;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(124, 58, 237, 0.03) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(236, 72, 153, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 80%, rgba(253, 186, 116, 0.05) 0px, transparent 50%);
+}
+
+.cream-mesh {
+  background-color: #faf7f2;
+  background-image: 
+    radial-gradient(at 20% 30%, rgba(124, 58, 237, 0.03) 0px, transparent 40%),
+    radial-gradient(at 80% 80%, rgba(253, 186, 116, 0.04) 0px, transparent 40%);
+}
+
+/* Muted Watercolor Artistic Overlays */
+.watercolor-overlay {
+  background-image: radial-gradient(circle at 50% 50%, rgba(253, 186, 116, 0.06) 0%, rgba(124, 58, 237, 0.02) 60%, transparent 100%);
+  mix-blend-mode: multiply;
+}
+
+/* Handwritten Accent Font Rule (Standard serif fallback for a warm human touch) */
+.handwritten {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
 }
