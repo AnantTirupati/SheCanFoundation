@@ -20,7 +20,7 @@ const sora = Sora({
 export const metadata: Metadata = {
   title: 'She Can Foundation | Uplifting Women & Social Impact across India',
   description:
-    'A women empowerment and social impact organization focused on menstrual hygiene awareness, education, equality, healthcare, and uplifting underprivileged women in India.',
+    'She Can Foundation is a registered national non-governmental organization committed to ending period poverty, facilitating girl-child education, and building female self-reliance since 2022.',
   keywords: [
     'Women Empowerment',
     'Menstrual Hygiene Awareness',
@@ -29,7 +29,30 @@ export const metadata: Metadata = {
     'She Can Foundation',
     'Social Impact',
     'Donate NGO',
+    'Period Poverty India',
   ],
+  icons: {
+    icon: '/SheCan.png',
+    shortcut: '/SheCan.png',
+    apple: '/SheCan.png',
+  },
+  openGraph: {
+    title: 'She Can Foundation | Uplifting Women & Social Impact across India',
+    description:
+      'A registered national non-governmental organization committed to ending period poverty, facilitating girl-child education, and building female self-reliance.',
+    url: 'https://shecanfoundation.org',
+    siteName: 'She Can Foundation',
+    images: [
+      {
+        url: '/volunteers_distributing.png',
+        width: 800,
+        height: 600,
+        alt: 'She Can Campaign',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
