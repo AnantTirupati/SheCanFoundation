@@ -18,6 +18,7 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://shecanfoundation.org'),
   title: 'She Can Foundation | Uplifting Women & Social Impact across India',
   description:
     'She Can Foundation is a registered national non-governmental organization committed to ending period poverty, facilitating girl-child education, and building female self-reliance since 2022.',
